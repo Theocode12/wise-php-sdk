@@ -20,6 +20,7 @@ use Theocode\Wise\Resources\Quote\Requests\CreateAuthenticatedQuoteRequest;
 use Theocode\Wise\Resources\Quote\Requests\CreateUnauthenticatedQuoteRequest;
 use Theocode\Wise\Resources\Quote\Requests\UpdateQuoteRequest;
 use Theocode\Wise\Resources\Rate\Requests\ListRatesRequest;
+use Theocode\Wise\Resources\RecipientAccount\Requests\AccountRequirementsOptions;
 use Theocode\Wise\Resources\RecipientAccount\Requests\CreateRecipientAccountRequest;
 use Theocode\Wise\Resources\Transfer\Requests\CreateTransferRequest;
 use Theocode\Wise\Resources\Transfer\Requests\TransferRequirementsRequest;
@@ -65,6 +66,12 @@ final class RequestValidationTest extends TestCase
     {
         $this->expectException(ValidationException::class);
         new CreateRecipientAccountRequest(0, 'Jane', 'EUR', 'iban', []);
+    }
+
+    public function test_account_requirements_options_rejects_invalid_originator_legal_entity_type(): void
+    {
+        $this->expectException(ValidationException::class);
+        new AccountRequirementsOptions(originatorLegalEntityType: 'SOLE_TRADER');
     }
 
     public function test_create_transfer_request_rejects_invalid_identifiers(): void
