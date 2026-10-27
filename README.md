@@ -2,27 +2,26 @@
 
 Wise PHP SDK for Wise Platform APIs.
 
-[![Tests](https://github.com/sudiptpa/wise-php-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/sudiptpa/wise-php-sdk/actions/workflows/ci.yml)
-[![Latest Version](https://img.shields.io/packagist/v/sudiptpa/wise-php-sdk.svg)](https://packagist.org/packages/sudiptpa/wise-php-sdk)
-[![Total Downloads](https://img.shields.io/packagist/dt/sudiptpa/wise-php-sdk.svg)](https://packagist.org/packages/sudiptpa/wise-php-sdk)
-[![License](https://img.shields.io/packagist/l/sudiptpa/wise-php-sdk.svg)](LICENSE)
+[![Tests](https://github.com/Theocode12/wise-php-sdk/actions/workflows/ci.yml/badge.svg)](https://github.com/Theocode12/wise-php-sdk/actions/workflows/ci.yml)
+[![Latest Version](https://img.shields.io/packagist/v/theocode12/wise-php-sdk.svg)](https://packagist.org/packages/theocode12/wise-php-sdk)
+[![Total Downloads](https://img.shields.io/packagist/dt/theocode12/wise-php-sdk.svg)](https://packagist.org/packages/theocode12/wise-php-sdk)
+[![License](https://img.shields.io/packagist/l/theocode12/wise-php-sdk.svg)](LICENSE)
 
----
-
-[![Sponsor](https://img.shields.io/badge/Sponsor-GitHub%20Sponsors-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/sudiptpa)
-
-If this package has been useful to you, GitHub Sponsors is a simple way to support ongoing maintenance, improvements, and future releases.
+## Origin
+This package is a maintained fork of [`sudiptpa/wise-php-sdk`](https://github.com/sudiptpa/wise-php-sdk), created by
+Sujip Thapa. It continues from upstream `v0.1.0` under the package name `theocode12/wise-php-sdk` and the
+`Theocode\Wise` namespace. To migrate from the original package, see [UPGRADE.md](UPGRADE.md).
 
 ## Unofficial Disclaimer
 This package is not affiliated with, endorsed by, or maintained by Wise.
 
 ## Requirements
 - PHP 8.2+
-- A transport implementation of `Sujip\Wise\Contracts\TransportInterface`
+- A transport implementation of `Theocode\Wise\Contracts\TransportInterface`
 
 ## Installation
 ```bash
-composer require sudiptpa/wise-php-sdk
+composer require theocode12/wise-php-sdk
 ```
 
 ## Quick Start
@@ -30,9 +29,9 @@ composer require sudiptpa/wise-php-sdk
 use GuzzleHttp\Client;
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
-use Sujip\Wise\Config\ClientConfig;
-use Sujip\Wise\Transport\Psr18Transport;
-use Sujip\Wise\Wise;
+use Theocode\Wise\Config\ClientConfig;
+use Theocode\Wise\Transport\Psr18Transport;
+use Theocode\Wise\Wise;
 
 $config = ClientConfig::apiToken('your-wise-api-token', ClientConfig::SANDBOX_BASE_URL);
 $transport = new Psr18Transport(new Client());
@@ -66,7 +65,7 @@ $balances = $wise->balance()->list((int) $firstProfileId);
 
 ## Configuration
 ```php
-use Sujip\Wise\Config\ClientConfig;
+use Theocode\Wise\Config\ClientConfig;
 
 $api = ClientConfig::apiToken('your-wise-api-token');
 $apiSandbox = ClientConfig::apiToken('your-wise-api-token', ClientConfig::SANDBOX_BASE_URL);
@@ -107,9 +106,9 @@ Notes:
 
 If you rotate OAuth2 tokens, provide your own token provider:
 ```php
-use Sujip\Wise\Auth\AuthMode;
-use Sujip\Wise\Config\ClientConfig;
-use Sujip\Wise\Contracts\AccessTokenProviderInterface;
+use Theocode\Wise\Auth\AuthMode;
+use Theocode\Wise\Config\ClientConfig;
+use Theocode\Wise\Contracts\AccessTokenProviderInterface;
 
 final class OAuthProvider implements AccessTokenProviderInterface
 {
@@ -130,7 +129,7 @@ $config = new ClientConfig(
 Every token request sends your `client_id:client_secret` as HTTP Basic auth. The client secret is never put in the form body.
 
 ```php
-use Sujip\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
+use Theocode\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
 
 // Application-level client credentials token (valid 12 hours, no refresh token)
 $token = $wise->userTokens()->create(CreateUserTokenRequest::clientCredentials($clientId, $clientSecret));
@@ -147,10 +146,10 @@ $token->expiresAt(); // expires_at, or now + expires_in
 To call application-level endpoints with a client credentials token, use `ClientCredentialsTokenProvider`. It caches the token in memory and fetches a new one shortly before it expires:
 
 ```php
-use Sujip\Wise\Auth\AuthMode;
-use Sujip\Wise\Auth\ClientCredentialsTokenProvider;
-use Sujip\Wise\Config\ClientConfig;
-use Sujip\Wise\Wise;
+use Theocode\Wise\Auth\AuthMode;
+use Theocode\Wise\Auth\ClientCredentialsTokenProvider;
+use Theocode\Wise\Config\ClientConfig;
+use Theocode\Wise\Wise;
 
 // The token client only sends the unauthenticated /oauth/token request.
 $tokenClient = Wise::client(
@@ -187,8 +186,8 @@ composer require guzzlehttp/guzzle http-interop/http-factory-guzzle
 use GuzzleHttp\Client;
 use Http\Factory\Guzzle\RequestFactory;
 use Http\Factory\Guzzle\StreamFactory;
-use Sujip\Wise\Transport\Psr18Transport;
-use Sujip\Wise\Wise;
+use Theocode\Wise\Transport\Psr18Transport;
+use Theocode\Wise\Wise;
 
 $transport = new Psr18Transport(new Client());
 $wise = Wise::client($config, $transport, new RequestFactory(), new StreamFactory());
@@ -196,7 +195,7 @@ $wise = Wise::client($config, $transport, new RequestFactory(), new StreamFactor
 
 ### 2) Curl transport (example)
 ```php
-final class CurlTransport implements \Sujip\Wise\Contracts\TransportInterface
+final class CurlTransport implements \Theocode\Wise\Contracts\TransportInterface
 {
     public function send(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
@@ -207,7 +206,7 @@ final class CurlTransport implements \Sujip\Wise\Contracts\TransportInterface
 
 ### 3) Laravel transport (example)
 ```php
-final class LaravelTransport implements \Sujip\Wise\Contracts\TransportInterface
+final class LaravelTransport implements \Theocode\Wise\Contracts\TransportInterface
 {
     public function send(\Psr\Http\Message\RequestInterface $request): \Psr\Http\Message\ResponseInterface
     {
@@ -223,10 +222,10 @@ See full transport setup guides:
 
 ## Send Money in 4 Steps
 ```php
-use Sujip\Wise\Resources\Payment\Requests\FundTransferRequest;
-use Sujip\Wise\Resources\Quote\Requests\CreateAuthenticatedQuoteRequest;
-use Sujip\Wise\Resources\RecipientAccount\Requests\CreateRecipientAccountRequest;
-use Sujip\Wise\Resources\Transfer\Requests\CreateTransferRequest;
+use Theocode\Wise\Resources\Payment\Requests\FundTransferRequest;
+use Theocode\Wise\Resources\Quote\Requests\CreateAuthenticatedQuoteRequest;
+use Theocode\Wise\Resources\RecipientAccount\Requests\CreateRecipientAccountRequest;
+use Theocode\Wise\Resources\Transfer\Requests\CreateTransferRequest;
 
 $quote = $wise->quote()->createAuthenticated(
     123,
@@ -251,7 +250,7 @@ Important:
 
 ## Activity Listing + Pagination
 ```php
-use Sujip\Wise\Resources\Activity\Requests\ListActivitiesRequest;
+use Theocode\Wise\Resources\Activity\Requests\ListActivitiesRequest;
 
 $page = $wise->activity()->list(123, new ListActivitiesRequest(status: 'COMPLETED', size: 20));
 
@@ -283,9 +282,9 @@ Use the `id` field from the response.
 
 ## Error Handling
 ```php
-use Sujip\Wise\Exceptions\ApiException;
-use Sujip\Wise\Exceptions\AuthException;
-use Sujip\Wise\Exceptions\RateLimitException;
+use Theocode\Wise\Exceptions\ApiException;
+use Theocode\Wise\Exceptions\AuthException;
+use Theocode\Wise\Exceptions\RateLimitException;
 
 try {
     $quote = $wise->quote()->get(123, 456);
@@ -310,9 +309,9 @@ try {
 Retries are off by default. Enable them explicitly:
 
 ```php
-use Sujip\Wise\Auth\AuthMode;
-use Sujip\Wise\Auth\StaticAccessTokenProvider;
-use Sujip\Wise\Config\ClientConfig;
+use Theocode\Wise\Auth\AuthMode;
+use Theocode\Wise\Auth\StaticAccessTokenProvider;
+use Theocode\Wise\Config\ClientConfig;
 
 $config = new ClientConfig(
     authMode: AuthMode::ApiToken,
@@ -337,7 +336,7 @@ Notes:
 Create subscriptions through `WebhookResource`. Wise expects one trigger per subscription and a
 `delivery` block, which `CreateWebhookSubscriptionRequest::for()` builds:
 ```php
-use Sujip\Wise\Resources\Webhook\Requests\CreateWebhookSubscriptionRequest;
+use Theocode\Wise\Resources\Webhook\Requests\CreateWebhookSubscriptionRequest;
 
 $subscription = $wise->webhook()->createApplicationSubscription(
     'your-client-key',
@@ -353,7 +352,7 @@ Wise signs each event with an RSA private key (SHA-256 digest of the raw body, B
 `X-Signature-SHA256` header) and publishes the matching public keys. Verify the raw request body
 before processing:
 ```php
-use Sujip\Wise\Resources\Webhook\WebhookSignatureVerifier;
+use Theocode\Wise\Resources\Webhook\WebhookSignatureVerifier;
 
 $rawBody = file_get_contents('php://input') ?: '';
 $signature = $_SERVER['HTTP_X_SIGNATURE_SHA256'] ?? '';
@@ -374,8 +373,8 @@ if (! $verifier->verify($rawBody, $signature)) {
 
 Replay protection helper, keyed by the unique `X-Delivery-Id` header and the event `sent_at` timestamp:
 ```php
-use Sujip\Wise\Resources\Webhook\WebhookReplayProtector;
-use Sujip\Wise\Support\InMemoryWebhookReplayStore;
+use Theocode\Wise\Resources\Webhook\WebhookReplayProtector;
+use Theocode\Wise\Support\InMemoryWebhookReplayStore;
 
 $event = json_decode($rawBody, true, 512, JSON_THROW_ON_ERROR);
 
@@ -388,7 +387,7 @@ $replayProtector->validate(
 
 Redis replay store example:
 ```php
-use Sujip\Wise\Contracts\WebhookReplayStoreInterface;
+use Theocode\Wise\Contracts\WebhookReplayStoreInterface;
 
 final class RedisWebhookReplayStore implements WebhookReplayStoreInterface
 {

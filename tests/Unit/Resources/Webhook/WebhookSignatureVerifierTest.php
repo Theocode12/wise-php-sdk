@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Tests\Unit\Resources\Webhook;
+namespace Theocode\Wise\Tests\Unit\Resources\Webhook;
 
 use PHPUnit\Framework\TestCase;
-use Sujip\Wise\Exceptions\ValidationException;
-use Sujip\Wise\Resources\Webhook\WebhookSignatureVerifier;
+use Theocode\Wise\Exceptions\ValidationException;
+use Theocode\Wise\Resources\Webhook\WebhookSignatureVerifier;
 
 final class WebhookSignatureVerifierTest extends TestCase
 {

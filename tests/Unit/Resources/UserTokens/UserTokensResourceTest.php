@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Tests\Unit\Resources\UserTokens;
+namespace Theocode\Wise\Tests\Unit\Resources\UserTokens;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\RequestInterface;
-use Sujip\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
-use Sujip\Wise\Tests\Support\FakeTransport;
-use Sujip\Wise\Tests\Support\Psr7Factory;
-use Sujip\Wise\Tests\Support\TestClientFactory;
+use Theocode\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
+use Theocode\Wise\Tests\Support\FakeTransport;
+use Theocode\Wise\Tests\Support\Psr7Factory;
+use Theocode\Wise\Tests\Support\TestClientFactory;
 
 final class UserTokensResourceTest extends TestCase
 {

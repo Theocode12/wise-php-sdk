@@ -2,33 +2,33 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Tests\Unit\Resources;
+namespace Theocode\Wise\Tests\Unit\Resources;
 
 use PHPUnit\Framework\TestCase;
-use Sujip\Wise\Resources\Address\Requests\CreateAddressRequest;
-use Sujip\Wise\Resources\Address\Requests\ResolveAddressRequirementsRequest;
-use Sujip\Wise\Resources\Balance\Requests\AddExcessMoneyAccountRequest;
-use Sujip\Wise\Resources\Balance\Requests\CreateBalanceMovementRequest;
-use Sujip\Wise\Resources\Balance\Requests\CreateBalanceRequest;
-use Sujip\Wise\Resources\BalanceStatement\Requests\GetBalanceStatementRequest;
-use Sujip\Wise\Resources\BankAccountDetails\Requests\CreateBankDetailsRequest;
-use Sujip\Wise\Resources\BankAccountDetails\Requests\CreateDetailsOrderRequest;
-use Sujip\Wise\Resources\BankAccountDetails\Requests\MarkPaymentReturnRequest;
-use Sujip\Wise\Resources\Contact\Requests\CreateContactRequest;
-use Sujip\Wise\Resources\Payment\Requests\FundTransferRequest;
-use Sujip\Wise\Resources\Quote\Requests\CreateAuthenticatedQuoteRequest;
-use Sujip\Wise\Resources\Quote\Requests\UpdateQuoteRequest;
-use Sujip\Wise\Resources\Rate\Requests\ListRatesRequest;
-use Sujip\Wise\Resources\RecipientAccount\Requests\CreateRecipientAccountRequest;
-use Sujip\Wise\Resources\Transfer\Requests\TransferRequirementsRequest;
-use Sujip\Wise\Resources\User\Requests\CreateRegistrationCodeRequest;
-use Sujip\Wise\Resources\User\Requests\UpdateUserContactEmailRequest;
-use Sujip\Wise\Resources\User\Requests\UserExistsRequest;
-use Sujip\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
-use Sujip\Wise\Resources\Webhook\Requests\CreateWebhookSubscriptionRequest;
-use Sujip\Wise\Tests\Support\FakeTransport;
-use Sujip\Wise\Tests\Support\Psr7Factory;
-use Sujip\Wise\Tests\Support\TestClientFactory;
+use Theocode\Wise\Resources\Address\Requests\CreateAddressRequest;
+use Theocode\Wise\Resources\Address\Requests\ResolveAddressRequirementsRequest;
+use Theocode\Wise\Resources\Balance\Requests\AddExcessMoneyAccountRequest;
+use Theocode\Wise\Resources\Balance\Requests\CreateBalanceMovementRequest;
+use Theocode\Wise\Resources\Balance\Requests\CreateBalanceRequest;
+use Theocode\Wise\Resources\BalanceStatement\Requests\GetBalanceStatementRequest;
+use Theocode\Wise\Resources\BankAccountDetails\Requests\CreateBankDetailsRequest;
+use Theocode\Wise\Resources\BankAccountDetails\Requests\CreateDetailsOrderRequest;
+use Theocode\Wise\Resources\BankAccountDetails\Requests\MarkPaymentReturnRequest;
+use Theocode\Wise\Resources\Contact\Requests\CreateContactRequest;
+use Theocode\Wise\Resources\Payment\Requests\FundTransferRequest;
+use Theocode\Wise\Resources\Quote\Requests\CreateAuthenticatedQuoteRequest;
+use Theocode\Wise\Resources\Quote\Requests\UpdateQuoteRequest;
+use Theocode\Wise\Resources\Rate\Requests\ListRatesRequest;
+use Theocode\Wise\Resources\RecipientAccount\Requests\CreateRecipientAccountRequest;
+use Theocode\Wise\Resources\Transfer\Requests\TransferRequirementsRequest;
+use Theocode\Wise\Resources\User\Requests\CreateRegistrationCodeRequest;
+use Theocode\Wise\Resources\User\Requests\UpdateUserContactEmailRequest;
+use Theocode\Wise\Resources\User\Requests\UserExistsRequest;
+use Theocode\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
+use Theocode\Wise\Resources\Webhook\Requests\CreateWebhookSubscriptionRequest;
+use Theocode\Wise\Tests\Support\FakeTransport;
+use Theocode\Wise\Tests\Support\Psr7Factory;
+use Theocode\Wise\Tests\Support\TestClientFactory;
 
 final class EndpointContractTest extends TestCase
 {

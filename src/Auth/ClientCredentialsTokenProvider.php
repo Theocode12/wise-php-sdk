@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Auth;
+namespace Theocode\Wise\Auth;
 
 use Closure;
-use Sujip\Wise\Contracts\AccessTokenProviderInterface;
-use Sujip\Wise\Exceptions\ValidationException;
-use Sujip\Wise\Exceptions\WiseException;
-use Sujip\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
-use Sujip\Wise\WiseClient;
+use Theocode\Wise\Contracts\AccessTokenProviderInterface;
+use Theocode\Wise\Exceptions\ValidationException;
+use Theocode\Wise\Exceptions\WiseException;
+use Theocode\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
+use Theocode\Wise\WiseClient;
 
 /**
  * Fetches a client credentials token from `POST /oauth/token` and caches it in memory until it is

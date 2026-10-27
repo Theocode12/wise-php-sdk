@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Resources\RecipientAccount;
+namespace Theocode\Wise\Resources\RecipientAccount;
 
-use Sujip\Wise\Resources\RecipientAccount\Collections\RecipientAccountCollection;
-use Sujip\Wise\Resources\RecipientAccount\Models\RecipientAccount;
-use Sujip\Wise\Resources\RecipientAccount\Requests\CreateRecipientAccountRequest;
-use Sujip\Wise\Resources\Resource;
+use Theocode\Wise\Resources\RecipientAccount\Collections\RecipientAccountCollection;
+use Theocode\Wise\Resources\RecipientAccount\Models\RecipientAccount;
+use Theocode\Wise\Resources\RecipientAccount\Requests\CreateRecipientAccountRequest;
+use Theocode\Wise\Resources\Resource;
 
 final class RecipientAccountResource extends Resource
 {

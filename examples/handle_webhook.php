@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-use Sujip\Wise\Resources\Webhook\WebhookReplayProtector;
-use Sujip\Wise\Resources\Webhook\WebhookSignatureVerifier;
-use Sujip\Wise\Support\InMemoryWebhookReplayStore;
+use Theocode\Wise\Resources\Webhook\WebhookReplayProtector;
+use Theocode\Wise\Resources\Webhook\WebhookSignatureVerifier;
+use Theocode\Wise\Support\InMemoryWebhookReplayStore;
 
 require __DIR__.'/../vendor/autoload.php';
 

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Tests\Unit\Resources\Transfer;
+namespace Theocode\Wise\Tests\Unit\Resources\Transfer;
 
 use PHPUnit\Framework\TestCase;
-use Sujip\Wise\Resources\Quote\Models\DeliveryEstimate;
-use Sujip\Wise\Resources\Quote\Models\Fee;
-use Sujip\Wise\Resources\Quote\Models\Quote;
-use Sujip\Wise\Resources\Quote\Models\Rate;
-use Sujip\Wise\Resources\RecipientAccount\Models\BankDetails;
-use Sujip\Wise\Resources\RecipientAccount\Models\RecipientAccount;
-use Sujip\Wise\Resources\Transfer\Enums\TransferStatus;
-use Sujip\Wise\Resources\Transfer\Requests\CreateTransferRequest;
-use Sujip\Wise\Resources\Transfer\Requests\TransferRequirementsRequest;
-use Sujip\Wise\Tests\Support\FakeTransport;
-use Sujip\Wise\Tests\Support\Psr7Factory;
-use Sujip\Wise\Tests\Support\TestClientFactory;
+use Theocode\Wise\Resources\Quote\Models\DeliveryEstimate;
+use Theocode\Wise\Resources\Quote\Models\Fee;
+use Theocode\Wise\Resources\Quote\Models\Quote;
+use Theocode\Wise\Resources\Quote\Models\Rate;
+use Theocode\Wise\Resources\RecipientAccount\Models\BankDetails;
+use Theocode\Wise\Resources\RecipientAccount\Models\RecipientAccount;
+use Theocode\Wise\Resources\Transfer\Enums\TransferStatus;
+use Theocode\Wise\Resources\Transfer\Requests\CreateTransferRequest;
+use Theocode\Wise\Resources\Transfer\Requests\TransferRequirementsRequest;
+use Theocode\Wise\Tests\Support\FakeTransport;
+use Theocode\Wise\Tests\Support\Psr7Factory;
+use Theocode\Wise\Tests\Support\TestClientFactory;
 
 final class TransferResourceTest extends TestCase
 {

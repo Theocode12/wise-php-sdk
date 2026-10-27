@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Resources\Webhook;
+namespace Theocode\Wise\Resources\Webhook;
 
 /**
  * @deprecated Wise signs webhook events with an RSA private key and publishes the matching public

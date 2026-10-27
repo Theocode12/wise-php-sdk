@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Resources\Webhook;
+namespace Theocode\Wise\Resources\Webhook;
 
-use Sujip\Wise\Exceptions\ValidationException;
+use Theocode\Wise\Exceptions\ValidationException;
 
 /**
  * Verifies the `X-Signature-SHA256` header of incoming Wise webhook events.

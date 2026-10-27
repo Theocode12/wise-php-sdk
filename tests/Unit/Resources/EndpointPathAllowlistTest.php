@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Tests\Unit\Resources;
+namespace Theocode\Wise\Tests\Unit\Resources;
 
 use PHPUnit\Framework\TestCase;
 
