@@ -126,6 +126,54 @@ $config = new ClientConfig(
 );
 ```
 
+### OAuth tokens (`/oauth/token`)
+Every token request sends your `client_id:client_secret` as HTTP Basic auth. The client secret is never put in the form body.
+
+```php
+use Sujip\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
+
+// Application-level client credentials token (valid 12 hours, no refresh token)
+$token = $wise->userTokens()->create(CreateUserTokenRequest::clientCredentials($clientId, $clientSecret));
+
+// User access tokens
+$token = $wise->userTokens()->create(CreateUserTokenRequest::authorizationCode($clientId, $clientSecret, $code, $redirectUri));
+$token = $wise->userTokens()->create(CreateUserTokenRequest::registrationCodeForEmail($clientId, $clientSecret, $email, $registrationCode));
+$token = $wise->userTokens()->create(CreateUserTokenRequest::refreshToken($clientId, $clientSecret, $refreshToken));
+
+$token->accessToken;
+$token->expiresAt(); // expires_at, or now + expires_in
+```
+
+To call application-level endpoints with a client credentials token, use `ClientCredentialsTokenProvider`. It caches the token in memory and fetches a new one shortly before it expires:
+
+```php
+use Sujip\Wise\Auth\AuthMode;
+use Sujip\Wise\Auth\ClientCredentialsTokenProvider;
+use Sujip\Wise\Config\ClientConfig;
+use Sujip\Wise\Wise;
+
+// The token client only sends the unauthenticated /oauth/token request.
+$tokenClient = Wise::client(
+    new ClientConfig(authMode: AuthMode::OAuth2, baseUrl: ClientConfig::SANDBOX_BASE_URL),
+    $transport,
+    new RequestFactory(),
+    new StreamFactory(),
+);
+
+$wise = Wise::client(
+    new ClientConfig(
+        authMode: AuthMode::OAuth2,
+        accessTokenProvider: new ClientCredentialsTokenProvider($tokenClient, $clientId, $clientSecret),
+        baseUrl: ClientConfig::SANDBOX_BASE_URL,
+    ),
+    $transport,
+    new RequestFactory(),
+    new StreamFactory(),
+);
+```
+
+The cache lives only for the lifetime of the provider object. To share tokens across processes, store them in your own cache.
+
 ## Transport Options (Choose One)
 The SDK does not pick a transport for you.
 
