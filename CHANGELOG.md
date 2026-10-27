@@ -19,6 +19,8 @@ All notable changes to this project will be documented in this file.
 - `CreateUserTokenRequest::basicAuthHeader()`.
 - `UserToken` now exposes `expiresAt`, `refreshTokenExpiresIn`, `refreshTokenExpiresAt`, `scope`, and `createdAt`, plus an `expiresAt()` helper that falls back to `expires_in` when `expires_at` is missing.
 - `Auth\ClientCredentialsTokenProvider` fetches client credentials tokens and caches them in memory until shortly before they expire.
+- Recipient account requirements endpoints (`requirementsForQuote`, `refreshRequirementsForQuote`, `requirementsForRoute`) with dynamic-form models (`AccountRequirement`, `RequirementFieldGroup`, `RequirementField`, `AllowedValue`) and `Accept-Minor-Version: 1` support.
+- Optional `ownedByCustomer` parameter on `CreateRecipientAccountRequest`.
 
 ### Deprecated
 - `WebhookVerifier` (HMAC-SHA256 with a shared secret). Wise signs webhook events with an RSA private key; use `WebhookSignatureVerifier` instead. The class keeps its existing behaviour until the next major release.
