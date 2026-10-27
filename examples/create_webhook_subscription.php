@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-use Sujip\Wise\Config\ClientConfig;
-use Sujip\Wise\Resources\Webhook\Requests\CreateWebhookSubscriptionRequest;
-use Sujip\Wise\Transport\Psr18Transport;
-use Sujip\Wise\Wise;
+use Theocode\Wise\Config\ClientConfig;
+use Theocode\Wise\Resources\Webhook\Requests\CreateWebhookSubscriptionRequest;
+use Theocode\Wise\Transport\Psr18Transport;
+use Theocode\Wise\Wise;
 
 require __DIR__.'/../vendor/autoload.php';
 

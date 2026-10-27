@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Tests\Unit\Resources\UserTokens;
+namespace Theocode\Wise\Tests\Unit\Resources\UserTokens;
 
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
-use Sujip\Wise\Exceptions\ValidationException;
-use Sujip\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
+use Theocode\Wise\Exceptions\ValidationException;
+use Theocode\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
 
 final class CreateUserTokenRequestTest extends TestCase
 {

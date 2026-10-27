@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Tests\Unit\Auth;
+namespace Theocode\Wise\Tests\Unit\Auth;
 
 use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
-use Sujip\Wise\Auth\AuthMode;
-use Sujip\Wise\Auth\ClientCredentialsTokenProvider;
-use Sujip\Wise\Config\ClientConfig;
-use Sujip\Wise\Exceptions\ValidationException;
-use Sujip\Wise\Exceptions\WiseException;
-use Sujip\Wise\Tests\Support\FakeTransport;
-use Sujip\Wise\Tests\Support\Psr7Factory;
-use Sujip\Wise\Tests\Support\TestClientFactory;
-use Sujip\Wise\WiseClient;
+use Theocode\Wise\Auth\AuthMode;
+use Theocode\Wise\Auth\ClientCredentialsTokenProvider;
+use Theocode\Wise\Config\ClientConfig;
+use Theocode\Wise\Exceptions\ValidationException;
+use Theocode\Wise\Exceptions\WiseException;
+use Theocode\Wise\Tests\Support\FakeTransport;
+use Theocode\Wise\Tests\Support\Psr7Factory;
+use Theocode\Wise\Tests\Support\TestClientFactory;
+use Theocode\Wise\WiseClient;
 
 final class ClientCredentialsTokenProviderTest extends TestCase
 {

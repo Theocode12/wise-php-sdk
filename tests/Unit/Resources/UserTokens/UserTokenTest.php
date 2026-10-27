@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Tests\Unit\Resources\UserTokens;
+namespace Theocode\Wise\Tests\Unit\Resources\UserTokens;
 
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
-use Sujip\Wise\Resources\UserTokens\Models\UserToken;
+use Theocode\Wise\Resources\UserTokens\Models\UserToken;
 
 final class UserTokenTest extends TestCase
 {

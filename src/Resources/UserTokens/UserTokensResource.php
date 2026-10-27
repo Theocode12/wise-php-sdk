@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Resources\UserTokens;
+namespace Theocode\Wise\Resources\UserTokens;
 
-use Sujip\Wise\Resources\Resource;
-use Sujip\Wise\Resources\UserTokens\Models\UserToken;
-use Sujip\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
+use Theocode\Wise\Resources\Resource;
+use Theocode\Wise\Resources\UserTokens\Models\UserToken;
+use Theocode\Wise\Resources\UserTokens\Requests\CreateUserTokenRequest;
 
 final class UserTokensResource extends Resource
 {

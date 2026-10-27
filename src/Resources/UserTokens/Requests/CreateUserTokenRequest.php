@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Resources\UserTokens\Requests;
+namespace Theocode\Wise\Resources\UserTokens\Requests;
 
-use Sujip\Wise\Exceptions\ValidationException;
+use Theocode\Wise\Exceptions\ValidationException;
 
 /**
  * Request for `POST /oauth/token`.

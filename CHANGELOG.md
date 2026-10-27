@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-27
+
+### Changed
+- **Breaking:** the package is now published as `theocode12/wise-php-sdk`, a maintained fork of `sudiptpa/wise-php-sdk`, and the namespace changed from `Sujip\Wise` to `Theocode\Wise`. See [UPGRADE.md](UPGRADE.md).
+- The default `ClientConfig::$userAgent` is now `theocode12/wise-php-sdk`.
+
 ### Added
 - `WebhookSignatureVerifier` verifies the `X-Signature-SHA256` header with Wise's published RSA public keys (`sandbox()` / `production()`), supports multiple keys for rotation, and requires `ext-openssl`.
 - `CreateWebhookSubscriptionRequest::for()` builds the documented subscription body: `name`, `trigger_on`, `delivery.version`, `delivery.url`.

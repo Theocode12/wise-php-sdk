@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Resources\RecipientAccount\Requests;
+namespace Theocode\Wise\Resources\RecipientAccount\Requests;
 
-use Sujip\Wise\Exceptions\ValidationException;
+use Theocode\Wise\Exceptions\ValidationException;
 
 final readonly class CreateRecipientAccountRequest
 {

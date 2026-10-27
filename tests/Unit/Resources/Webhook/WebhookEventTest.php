@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Sujip\Wise\Tests\Unit\Resources\Webhook;
+namespace Theocode\Wise\Tests\Unit\Resources\Webhook;
 
 use PHPUnit\Framework\TestCase;
-use Sujip\Wise\Resources\Webhook\Models\WebhookEvent;
+use Theocode\Wise\Resources\Webhook\Models\WebhookEvent;
 
 final class WebhookEventTest extends TestCase
 {
