@@ -62,6 +62,7 @@ $balances = $wise->balance()->list((int) $firstProfileId);
 - `$wise->bankAccountDetails()`
 - `$wise->user()`
 - `$wise->userTokens()`
+- `$wise->simulation()` (sandbox only)
 
 ## Configuration
 ```php
@@ -342,6 +343,43 @@ try {
 Transfers can only be cancelled while they are in the `incoming_payment_waiting` state. A transfer's full
 payload (amounts, currencies, rate, reference, `customerTransactionId`, `payinSessionId`, and more) is
 available on the returned `Transfer` model.
+
+## Sandbox Testing (Simulation)
+
+The `simulation()` resource only works against the Wise sandbox. Every method throws unless the
+client targets `ClientConfig::SANDBOX_BASE_URL` (or a `wise-sandbox.com` host), so simulation
+calls can never accidentally hit production.
+
+```php
+use Theocode\Wise\Config\ClientConfig;
+use Theocode\Wise\Resources\Simulation\Enums\SimulatedTransferStatus;
+use Theocode\Wise\Resources\Simulation\Requests\BalanceTopUpRequest;
+
+$config = ClientConfig::apiToken('your-sandbox-token', ClientConfig::SANDBOX_BASE_URL);
+
+// Top up a GBP balance so it can fund transfers.
+$topUp = $wise->simulation()->balanceTopUp(new BalanceTopUpRequest(
+    profileId: 123,
+    balanceId: 501,
+    currency: 'GBP',
+    amount: 100.0,
+));
+
+// Create + fund a transfer, then walk it through the payout states.
+$transfer = $wise->simulation()->transferThrough($transferId, SimulatedTransferStatus::OutgoingPaymentSent);
+echo $transfer->status.PHP_EOL;
+
+// Or advance one state at a time (fund first, wait >= 5s between calls).
+$transfer = $wise->simulation()->transferState($transferId, SimulatedTransferStatus::Processing);
+```
+
+After a transfer reaches `bounced_back`, you can trigger the payout-failure webhook flow:
+
+```php
+$result = $wise->simulation()->payoutFailure($transferId, 'ACCOUNT_CLOSED');
+// Or omit the code and let Wise pick one at random:
+$result = $wise->simulation()->payoutFailure($transferId);
+```
 
 ## Finding Your Profile ID
 ```bash

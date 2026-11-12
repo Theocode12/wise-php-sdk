@@ -205,3 +205,29 @@ Notes:
 - Client credentials tokens do not include a refresh token; request a new one when the token expires (12 hours).
 - Wise allows only one valid user access token at a time; a new token invalidates the previous one.
 - In practice, `clientId` / `clientSecret` flows are part of Wise's partner-oriented OAuth setup.
+
+## Simulation (Sandbox Only)
+
+| SDK Method | HTTP | Path | Auth | Request | Response |
+|---|---|---|---|---|---|
+| `simulation()->transferState()` | `GET` | `/v1/simulation/transfers/{transferId}/{status}` | token/oauth2 | `SimulatedTransferStatus` | `Transfer` |
+| `simulation()->payoutFailure()` | `POST` | `/v1/simulation/transfers/{transferId}/payout-failure` | token/oauth2 | optional `failure_reason_code` | `PayoutFailureSimulation` |
+| `simulation()->balanceTopUp()` | `POST` | `/v1/simulation/balance/topup` | token/oauth2 | `BalanceTopUpRequest` | `BalanceTopUp` |
+| `simulation()->transferThrough()` | repeated `GET` | `/v1/simulation/transfers/{transferId}/{status}` | token/oauth2 | `SimulatedTransferStatus` target | `Transfer` |
+
+Notes:
+- Every `simulation()` method throws `ValidationException` unless the client targets the sandbox
+  (`ClientConfig::SANDBOX_BASE_URL` or a host ending in `wise-sandbox.com`). Simulation calls against
+  production are never sent.
+- State transitions walk `processing` → `funds_converted` → `outgoing_payment_sent` → `bounced_back` →
+  `funds_refunded`. Fund the transfer first, wait at least 5 seconds between calls, and note that
+  simulation is not supported for email transfers.
+- `payoutFailure()` requires the transfer to be `bounced_back`. The request body is optional: omit the
+  code (or send `{}`) and Wise selects a failure reason at random. Wise documents no response body for
+  this endpoint, so `PayoutFailureSimulation` captures `failureReasonCode` when present and always keeps
+  the raw payload.
+- `balanceTopUp()` needs `profileId`, `balanceId`, `currency`, and `amount`; `channel` (`TRANSFER`/`CARD`)
+  is optional and defaults to `CARD` when omitted.
+- `transferThrough($id, $target)` walks the chain up to and including `$target`, sleeping 5 seconds
+  between steps by default. Pass a custom `$sleepSeconds` value or a `$sleeper` callable (receives seconds;
+  a no-op disables sleeping, e.g. in tests).
