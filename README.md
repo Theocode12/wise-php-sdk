@@ -366,7 +366,13 @@ $topUp = $wise->simulation()->balanceTopUp(new BalanceTopUpRequest(
 ));
 
 // Create + fund a transfer, then walk it through the payout states.
-$transfer = $wise->simulation()->transferThrough($transferId, SimulatedTransferStatus::OutgoingPaymentSent);
+// The helper performs no waiting; Wise processes simulations asynchronously,
+// so wait >= 5s between steps in real runs (here via the $sleeper hook).
+$transfer = $wise->simulation()->transferThrough(
+    $transferId,
+    SimulatedTransferStatus::OutgoingPaymentSent,
+    sleeper: fn () => sleep(5),
+);
 echo $transfer->status.PHP_EOL;
 
 // Or advance one state at a time (fund first, wait >= 5s between calls).

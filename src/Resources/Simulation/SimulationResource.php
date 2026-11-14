@@ -54,16 +54,16 @@ final class SimulationResource extends Resource
      * Walk a transfer through the documented simulation chain up to the target state.
      *
      * Chain: processing -> funds_converted -> outgoing_payment_sent -> bounced_back -> funds_refunded.
-     * Wise processes simulations asynchronously, so callers should wait at least 5 seconds
-     * between state changes. By default this helper sleeps between intermediate steps; pass a
-     * no-op sleeper (or 0 seconds) to disable sleeping, e.g. in tests.
+     * Wise processes simulations asynchronously, so wait at least 5 seconds between state
+     * changes in real runs. This helper performs no waiting itself — pass a $sleeper
+     * (e.g. fn () => sleep(5)) to wait between steps, or wait between manual
+     * transferState() calls.
      *
-     * @param  callable(int): void|null  $sleeper  Receives the sleep duration in seconds.
+     * @param  callable(): void|null  $sleeper  Invoked between steps when provided.
      */
     public function transferThrough(
         int $transferId,
         SimulatedTransferStatus $target,
-        int $sleepSeconds = 5,
         ?callable $sleeper = null,
     ): Transfer {
         $this->ensureSandbox();
@@ -77,9 +77,7 @@ final class SimulationResource extends Resource
             }
 
             if ($sleeper !== null) {
-                $sleeper($sleepSeconds);
-            } else {
-                sleep($sleepSeconds);
+                $sleeper();
             }
         }
 

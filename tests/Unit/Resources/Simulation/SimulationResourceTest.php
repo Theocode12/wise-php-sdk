@@ -117,7 +117,7 @@ final class SimulationResourceTest extends TestCase
         new BalanceTopUpRequest(profileId: 123, balanceId: 501, currency: 'GBP', amount: 10.0, channel: 'WIRE');
     }
 
-    public function test_transfer_through_walks_chain_with_noop_sleeper(): void
+    public function test_transfer_through_walks_chain_with_optional_sleeper(): void
     {
         $responses = [];
         foreach (['processing', 'funds_converted', 'outgoing_payment_sent'] as $status) {
@@ -126,13 +126,12 @@ final class SimulationResourceTest extends TestCase
         $transport = new FakeTransport($responses);
         $client = TestClientFactory::make($transport, ClientConfig::apiToken('test-token', ClientConfig::SANDBOX_BASE_URL));
 
-        $sleeps = [];
+        $betweenSteps = 0;
         $transfer = $client->simulation()->transferThrough(
             3001,
             SimulatedTransferStatus::OutgoingPaymentSent,
-            5,
-            static function (int $seconds) use (&$sleeps): void {
-                $sleeps[] = $seconds;
+            static function () use (&$betweenSteps): void {
+                $betweenSteps++;
             },
         );
 
@@ -141,7 +140,25 @@ final class SimulationResourceTest extends TestCase
         self::assertSame('/v1/simulation/transfers/3001/processing', $transport->requests()[0]->getUri()->getPath());
         self::assertSame('/v1/simulation/transfers/3001/funds_converted', $transport->requests()[1]->getUri()->getPath());
         self::assertSame('/v1/simulation/transfers/3001/outgoing_payment_sent', $transport->requests()[2]->getUri()->getPath());
-        self::assertSame([5, 5], $sleeps);
+        self::assertSame(2, $betweenSteps);
+    }
+
+    public function test_transfer_through_performs_no_waiting_by_default(): void
+    {
+        $responses = [];
+        foreach (['processing', 'funds_converted'] as $status) {
+            $responses[] = Psr7Factory::response(200, (string) json_encode(['id' => 3001, 'targetAccount' => 2001, 'status' => $status]));
+        }
+        $transport = new FakeTransport($responses);
+        $client = TestClientFactory::make($transport, ClientConfig::apiToken('test-token', ClientConfig::SANDBOX_BASE_URL));
+
+        $startedAt = hrtime(true);
+        $transfer = $client->simulation()->transferThrough(3001, SimulatedTransferStatus::FundsConverted);
+        $elapsedMs = (hrtime(true) - $startedAt) / 1_000_000;
+
+        self::assertSame('funds_converted', $transfer->status);
+        self::assertCount(2, $transport->requests());
+        self::assertLessThan(1000, $elapsedMs, 'transferThrough must not sleep; waiting is caller-owned.');
     }
 
     public function test_simulated_transfer_status_enum_values(): void

@@ -228,6 +228,7 @@ Notes:
   the raw payload.
 - `balanceTopUp()` needs `profileId`, `balanceId`, `currency`, and `amount`; `channel` (`TRANSFER`/`CARD`)
   is optional and defaults to `CARD` when omitted.
-- `transferThrough($id, $target)` walks the chain up to and including `$target`, sleeping 5 seconds
-  between steps by default. Pass a custom `$sleepSeconds` value or a `$sleeper` callable (receives seconds;
-  a no-op disables sleeping, e.g. in tests).
+- `transferThrough($id, $target)` walks the chain up to and including `$target` with no waiting
+  between steps — waiting is caller-owned. In real runs, wait at least 5 seconds between state changes:
+  either pass a `$sleeper` callable (invoked between steps, e.g. `fn () => sleep(5)`) or wait between
+  manual `transferState()` calls.
