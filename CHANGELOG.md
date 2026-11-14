@@ -5,6 +5,8 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- `simulation()` sandbox-only resource: `transferState()` (`GET /v1/simulation/transfers/{transferId}/{status}`), `payoutFailure()` (`POST .../payout-failure`, optional `failure_reason_code`), `balanceTopUp()` (`POST /v1/simulation/balance/topup`), and `transferThrough()` chain helper. Every method throws before sending HTTP unless the client targets the Wise sandbox.
+- `SimulatedTransferStatus` enum (`processing`, `funds_converted`, `outgoing_payment_sent`, `bounced_back`, `funds_refunded`), `BalanceTopUp`/`SimulatedBalance` models, `PayoutFailureSimulation` (tolerant: Wise documents no response body), and `BalanceTopUpRequest` (`profileId`, `balanceId`, `currency`, `amount`, optional `TRANSFER`/`CARD` channel defaulting to `CARD`).
 - `transfer()->list()` and `transfer()->iterate()` to list transfers (with profile, status, currency, date, limit, and offset filters) via `GET /v1/transfers`.
 - `transfer()->cancel()` to cancel a transfer that is `incoming_payment_waiting` via `PUT /v1/transfers/{transferId}/cancel`.
 - `Transfer` now hydrates the full Wise payload: `user`, `sourceAccount`, `reference` (prefers `details.reference`), `rate`, `created` (parsed as a UTC `DateTimeImmutable`), `business`, `hasActiveIssues`, `sourceCurrency`, `sourceValue`, `targetCurrency`, `targetValue`, `customerTransactionId`, `payinSessionId`, `details`, and `raw`.

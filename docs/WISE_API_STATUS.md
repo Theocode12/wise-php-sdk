@@ -70,6 +70,9 @@ Status legend:
 | User | `PUT /v1/users/{userId}/contact-email` | Implemented | update contact email |
 | User | `GET /v1/users/{userId}/contact-email` | Implemented | get contact email |
 | User Tokens | `POST /oauth/token` | Implemented | client credentials, authorization code, refresh token, and registration code grants (HTTP Basic client auth) |
+| Simulation | `GET /v1/simulation/transfers/{transferId}/{status}` | Implemented | sandbox only: advance transfer state |
+| Simulation | `POST /v1/simulation/transfers/{transferId}/payout-failure` | Implemented | sandbox only: trigger payout failure (transfer must be `bounced_back`) |
+| Simulation | `POST /v1/simulation/balance/topup` | Implemented | sandbox only: top up a balance |
 
 ## Out of Scope For Current Phase (Non-Deprecated)
 
@@ -98,7 +101,7 @@ These resources are available in Wise's current API reference, but are intention
 | Partner Cases | Planned | not in current payment-core SDK scope |
 | Payin Deposit Detail | Planned | not in current payment-core SDK scope |
 | Push Provisioning | Planned | not in current payment-core SDK scope |
-| Simulation | Planned | not in current payment-core SDK scope |
+| Simulation | Implemented | sandbox-only transfer/balance simulation (U06) |
 | Spend Controls | Planned | not in current payment-core SDK scope |
 | Spend Limits | Planned | not in current payment-core SDK scope |
 | Strong Customer Authentication | Planned | not in current payment-core SDK scope |

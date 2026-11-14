@@ -45,3 +45,17 @@ For `oauth2` mode:
 - Personal token mode is the default path for self-account checks.
 - OAuth2 mode should be treated as partner-oriented and may not be available unless Wise has enabled it for your setup.
 - Funding flows are intentionally excluded from this quick sandbox check.
+
+## Manual simulation run (sandbox only)
+
+The `simulation()` resource is sandbox-only and is exercised manually (not in CI):
+
+1. Top up a balance: `simulation()->balanceTopUp()` (e.g. GBP) so it can fund transfers.
+2. Create a transfer draft (`transfer()->create()`), then fund it (`payment()->fundTransfer()`).
+3. Walk it through the payout states: `simulation()->transferThrough($id, SimulatedTransferStatus::OutgoingPaymentSent)`
+   (or step manually with `transferState()`, waiting at least 5 seconds between calls).
+4. Confirm with `transfer()->get()` that the status advanced.
+5. Optional: after `bounced_back`, call `simulation()->payoutFailure()` to exercise the payout-failure webhook flow.
+
+The SDK guards every `simulation()` call: it throws before sending any HTTP unless the client
+targets the sandbox (`ClientConfig::SANDBOX_BASE_URL` or a `wise-sandbox.com` host).

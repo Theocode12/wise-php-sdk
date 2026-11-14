@@ -1,0 +1,7 @@
+{
+  "transactionId": 9001,
+  "state": "COMPLETED",
+  "balancesAfter": [
+    {"id": 501, "value": 150.0, "currency": "GBP"}
+  ]
+}

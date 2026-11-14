@@ -28,6 +28,7 @@ use Theocode\Wise\Resources\Profile\ProfileResource;
 use Theocode\Wise\Resources\Quote\QuoteResource;
 use Theocode\Wise\Resources\Rate\RateResource;
 use Theocode\Wise\Resources\RecipientAccount\RecipientAccountResource;
+use Theocode\Wise\Resources\Simulation\SimulationResource;
 use Theocode\Wise\Resources\Transfer\TransferResource;
 use Theocode\Wise\Resources\User\UserResource;
 use Theocode\Wise\Resources\UserTokens\UserTokensResource;
@@ -131,6 +132,11 @@ final readonly class WiseClient
     public function userTokens(): UserTokensResource
     {
         return new UserTokensResource($this);
+    }
+
+    public function simulation(): SimulationResource
+    {
+        return new SimulationResource($this);
     }
 
     public function hydrator(): Hydrator
